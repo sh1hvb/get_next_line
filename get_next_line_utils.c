@@ -6,22 +6,43 @@
 /*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 15:34:57 by mchihab           #+#    #+#             */
-/*   Updated: 2023/12/04 11:50:58 by mchihab          ###   ########.fr       */
+/*   Updated: 2023/12/04 16:39:19 by mchihab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
 t_list *last_node(t_list *list)
 {
 	if (list == NULL)
-    {
         return NULL;
-    }
     while (list->next != NULL)
-    {
         list = list->next;
-    }
     return list;
+}
+int ft_strlen(const char *s)
+{
+	int i = 0;
+	while(s[i])
+		i++;
+	return i;
+}
+char	*ft_strdup(const char *s1)
+{
+	char	*p;
+	int		i;
+
+	i = 0;
+	p = (char *)malloc(sizeof(char) * ft_strlen(s1) + 1);
+	if (!p)
+		return (0);
+	while (s1[i])
+	{
+		p[i] = s1[i];
+		i++;
+	}
+	p[i] = '\0';
+	return (p);
 }
 void add_line(t_list **list, char *p)
 {
@@ -32,22 +53,24 @@ void add_line(t_list **list, char *p)
 
     new = malloc(sizeof(t_list));
     if (!new)
-        return; 
+        return;
+    
     if (last == NULL)
         *list = new;
-    new->str_buf = strdup(p);
+    else
+        last->next = new;
+
+    new->str_buf = ft_strdup(p);
     if (!new->str_buf)
     {
-        free(new);
-        return; 
+        return;
     }
+
     new->next = NULL;
-    if (last != NULL)
-        last->next = new;
 }
 int check_new_line(t_list *lst)
 {
-    char *a = lst->str_buf;
+    char *a = (char *)lst->str_buf;
     int i = 0;
 
     while (a[i])
@@ -55,26 +78,46 @@ int check_new_line(t_list *lst)
         if (a[i] == '\n')
             return 1;
         i++;
-    return 0;
+   
 	}
+	return 0;
 }
-void create_lst(t_list **list ,int fd)
-{
-	char *p;
-	int reader;
-	char *a = *list;
 
-	while(!check_new_line(*list))
+int len_of_str(t_list *lst)
+{
+	int len ;
+	int i ;
+ 	if(!lst)
+		return 0;
+	len = 0 ;
+	while (lst)
 	{
-		p = malloc(BUFFER_SIZE + 1);
-		if(!p) return ;
-		reader = read(fd, p, BUFFER_SIZE);
-		if(!reader)
+		i = 0 ;
+		while(lst->str_buf[i])
 		{
-			free(p);
-			return ;
+			if(lst->str_buf[i] == '\n')
+				return (len);
+			i++;
+			len++;
 		}
+		lst = lst->next;
 	}
-	p[reader] = '\0';
-	add_line(list, p);
+	return (len);
+}
+void free_all(t_list **list , t_list *node)
+{
+	t_list *curr;
+	t_list *next;
+
+	curr =  *list;
+	while(curr)
+	{
+		next = curr->next;
+		if(curr != node)
+		{
+			free(curr);
+		}
+		curr = next ;
+	}
+	*list = node; 
 }
