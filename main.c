@@ -2,11 +2,6 @@
 int main()
 {
     int fd = open("file.txt", O_RDONLY);
-    if (fd < 0)
-    {
-        perror("Error opening file");
-        return 1;
-    }
     char *line;
     int line_count = 1;
 
