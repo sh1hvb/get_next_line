@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -12,6 +13,7 @@
 
 #include "get_next_line.h"
 
+<<<<<<< HEAD
 char	*ft_reader_line(char *buffer)
 {
 	int		i;
@@ -89,21 +91,3 @@ char	*get_next_line(int fd)
 	tmp = ft_reader_line(buffer);
 	buffer = ∆(buffer);
 	return (tmp);
-}
-#include <fcntl.h>
-#include <stdio.h>
-
-int	main(void)
-{
-	int fd = open("file.txt", O_RDONLY);
-	char *line;
-	int line_count = 1;
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("%d. %s\n", line_count++, line);
-		free(line);
-	}
-
-	close(fd);
-	return (0);
-}

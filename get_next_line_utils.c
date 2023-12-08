@@ -5,12 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 14:39:56 by mchihab           #+#    #+#             */
-/*   Updated: 2023/12/07 14:46:00 by mchihab          ###   ########.fr       */
+/*   Created: 2023/12/07 14:39:53 by mchihab           #+#    #+#             */
+/*   Updated: 2023/12/08 16:56:26 by mchihab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdlib.h>
+
 
 int	ft_strlen(char *s)
 {

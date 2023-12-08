@@ -6,7 +6,7 @@
 /*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 14:39:50 by mchihab           #+#    #+#             */
-/*   Updated: 2023/12/07 14:54:52 by mchihab          ###   ########.fr       */
+/*   Updated: 2023/12/08 16:55:59 by mchihab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,4 @@ char	*ft_strchr(char *str, int c);
 int		ft_strlen(char *s);
 char	*ft_strjoin(char *buffer, char *src);
 char	*ft_join(char *dest, char *s1, char *s2);
-
 #endif
