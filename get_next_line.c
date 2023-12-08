@@ -13,7 +13,7 @@
 
 #include "get_next_line.h"
 
-<<<<<<< HEAD
+
 char	*ft_reader_line(char *buffer)
 {
 	int		i;
@@ -91,3 +91,4 @@ char	*get_next_line(int fd)
 	tmp = ft_reader_line(buffer);
 	buffer = ∆(buffer);
 	return (tmp);
+}
