@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mchihab <mchihab@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/07 14:39:53 by mchihab           #+#    #+#             */
-/*   Updated: 2023/12/08 16:48:39 by mchihab          ###   ########.fr       */
+/*   Created: 2023/12/07 14:40:05 by mchihab           #+#    #+#             */
+/*   Updated: 2023/12/07 14:45:14 by mchihab          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_reader_line(char *buffer)
 {
@@ -64,7 +64,7 @@ char	*ft_move_buffer(char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[1024];
 	int			reader;
 	char		*tmp;
 
@@ -74,7 +74,7 @@ char	*get_next_line(int fd)
 	tmp = (char *)malloc(BUFFER_SIZE + 1);
 	if (!tmp)
 		return (NULL);
-	while (!(ft_strchr(buffer, '\n')) && reader != 0)
+	while (!(ft_strchr(buffer[fd], '\n')) && reader != 0)
 	{
 		reader = read(fd, tmp, BUFFER_SIZE);
 		if (reader == -1)
@@ -83,27 +83,10 @@ char	*get_next_line(int fd)
 			return (NULL);
 		}
 		tmp[reader] = '\0';
-		buffer = ft_strjoin(buffer, tmp);
+		buffer[fd] = ft_strjoin(buffer[fd], tmp);
 	}
 	free(tmp);
-	tmp = ft_reader_line(buffer);
-	buffer = ∆(buffer);
+	tmp = ft_reader_line(buffer[fd]);
+	buffer[fd] = ft_move_buffer(buffer[fd]);
 	return (tmp);
-}
-#include <fcntl.h>
-#include <stdio.h>
-
-int	main(void)
-{
-	int fd = open("file.txt", O_RDONLY);
-	char *line;
-	int line_count = 1;
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("%d. %s\n", line_count++, line);
-		free(line);
-	}
-
-	close(fd);
-	return (0);
 }
